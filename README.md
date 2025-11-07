@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MagicSlides AI - PowerPoint Generator
+An AI-powered chat application that generates and edits PowerPoint presentations using natural language prompts. Built with Next.js, React, TypeScript, and Google Gemini AI.
 
-## Getting Started
+Features
+Core Features
+AI-Powered Generation: Create PowerPoint presentations using Google Gemini AI
 
-First, run the development server:
+Interactive Chat Interface: Natural language conversations to create and edit slides
 
-```bash
+Real-time Preview: Instant preview of generated slides
+
+Dynamic Editing: Edit slides through chat or direct content editing
+
+Plus Features (Implemented)
+Streaming PPT Generation: Real-time progress updates during presentation creation
+Multiple Download Options: Download as PPTX or PDF formats
+Chat History: Persistent chat sessions with history sidebar
+
+Professional Templates: Beautiful slide layouts and designs
+
+Tech Stack
+Frontend: Next.js 14, React 18, TypeScript, Tailwind CSS
+AI Integration: Google Gemini (gemini-1.5-flash, gemini-1.5-pro, gemini-pro)
+Presentation Generation: pptxgenjs for PowerPoint creation
+State Management: React Hooks (useState, useEffect)
+Storage: Browser localStorage for chat history
+Icons: Lucide React
+Styling: Tailwind CSS with custom components
+
+Prerequisites
+Before you begin, ensure you have:
+Node.js 18.0 or later installed
+Google Gemini API Key (free from Google AI Studio)
+Modern web browser with JavaScript enabled
+
+Quick Start
+Step 1: Clone and Setup
+
+npx create-next-app@latest magic-slides-app
+cd magic-slides-app
+
+# Install dependencies
+npm install pptxgenjs google-generative-ai lucide-react
+npm install -D tailwindcss postcss autoprefixer @types/node
+
+# Initialize Tailwind CSS
+npx tailwindcss init -p
+Step 2: Environment Configuration
+Create a .env.local file in the root directory:
+
+# env
+NEXT_PUBLIC_GEMINI_API_KEY=your_actual_gemini_api_key_here
+How to get your API key:
+
+# Visit Google AI Studio
+Click "Create API Key"
+Copy the key and paste it in .env.local
+
+Step 3: Project Structure
+text
+magic-slides-app/
+├── app/
+│   ├── components/          # React components
+│   │   ├── (Future components can go here)
+│   ├── lib/                # Utility libraries
+│   │   ├── gemini-client.ts    # AI service integration
+│   │   ├── ppt-generator.ts    # PowerPoint generation
+│   │   └── chat-history.ts     # Chat session management
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Main application page
+│   └── globals.css         # Global styles
+├── public/                 # Static assets
+├── .env.local             # Environment variables
+└── package.json           # Dependencies
+
+Step 4: Run the Application
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Open browser and navigate to
+http://localhost:3000
+🎯 Usage Instructions
+Creating Your First Presentation
+Start a Conversation:
+Type your request in the chat input: "Create a 5-slide presentation about climate change"
+Or click one of the example prompts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+AI Generation:
+The AI will process your request and generate structured slide content
+You'll see real-time progress during generation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Preview Slides:
+View generated slides in the right panel
+Each slide shows title, content, and layout type
 
-## Learn More
+Download Options:
+PPTX: Native PowerPoint format for editing in Microsoft PowerPoint
+PDF: Portable format for sharing and presentations
 
-To learn more about Next.js, take a look at the following resources:
+# Advanced Features
+Chat History
+Click the menu icon (☰) to open history sidebar
+View all previous chat sessions
+Load any previous conversation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Delete individual sessions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Start new chats with the "New Chat" button
 
-## Deploy on Vercel
+Progress Streaming
+Real-time progress during presentation generation
+Visual progress bar with percentage completion
+Step-by-step status updates
+Slide creation counter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Multiple Download Formats
+PPTX: Editable PowerPoint format
+PDF: Universal sharing format
+Both formats maintain professional styling

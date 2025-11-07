@@ -213,7 +213,7 @@ export default function Home() {
   // 1. We are actively loading (generating).
   // 2. We have no slides yet (initial state or a new chat).
   // 3. The current session has messages, but no slides (e.g., failed generation or a partial chat).
-  const showCleanUI = messages.length === 0 || slides.length === 0;
+  const showCleanUI = messages.length === 0 && slides.length === 0;
 
   if (showCleanUI) {
     return (
@@ -237,7 +237,7 @@ export default function Home() {
           </div>
 
           {/* New: Display Chat Messages in the clean UI when available */}
-          {messages.length > 0 && (
+          {/* {messages.length > 0 && (
             <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8 max-h-80 overflow-y-auto">
               {messages.map((message) => (
                 <div
@@ -255,14 +255,14 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          )}
+          )} */}
           
           <p className="text-gray-600 mb-8">
             {isLoading ? "Creating your presentation..." : messages.length === 0 ? "What do you want me to generate today?" : "Ready for your next command!"}
           </p>
 
           {/* Loading State */}
-          {isLoading && (
+          {/* {isLoading && (
             <div className="max-w-2xl mx-auto mb-8">
               <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold mb-4 text-center">Defining the Scope</h3>
@@ -282,7 +282,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Example Prompts - Only show when not loading AND no messages */}
           {!isLoading && messages.length === 0 && geminiService && (
@@ -368,7 +368,7 @@ export default function Home() {
                 onClick={handleNewChat}
                 className="w-full mb-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
               >
-                ➕ New Chat
+                New Chat
               </button>
 
               <h3 className="text-md font-semibold mb-2">Chat History</h3>
@@ -433,6 +433,8 @@ export default function Home() {
     );
   }
 
+
+
   // Show the complex two-column UI ONLY when slides are available
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 bg-gray-100">
@@ -483,7 +485,7 @@ export default function Home() {
                 onClick={handleNewChat}
                 className="w-full mb-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
               >
-                ➕ New Chat
+                New Chat
               </button>
 
               <h3 className="text-md font-semibold mb-2">Chat History</h3>
@@ -518,7 +520,7 @@ export default function Home() {
                           onClick={(e) => handleDeleteSession(session.id, e)}
                           className="p-1 text-red-500 hover:bg-red-100 rounded"
                         >
-                          🗑️
+                        X
                         </button>
                       </div>
                     </div>
@@ -548,7 +550,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Chat Section - THIS REMAINS THE TWO-COLUMN CHAT */}
           <div className=" rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Chat with AI</h2>
+            {/* <h2 className="text-xl font-semibold mb-4">Chat with AI</h2> */}
 
             <div className="h-96 overflow-y-auto mb-4 space-y-4">
               {messages.map((message) => (
@@ -557,7 +559,7 @@ export default function Home() {
                   className={`p-4 rounded-2xl max-w-[80%] ${
                     message.isUser
                       ? 'bg-blue-500 text-white ml-auto rounded-br-none'
-                      : 'bg-gray-100 text-gray-800 rounded-bl-none'
+                      : 'bg-gray-50 text-gray-800 rounded-bl-none'
                   }`}
                 >
                   <div className="text-sm opacity-75 mb-1">
@@ -603,8 +605,23 @@ export default function Home() {
               )}
             </div>
 
-            <div className="h-96 overflow-y-auto space-y-4">
-              {slides.map((slide, index) => (
+            {isLoading ? (
+              <div className="h-96 flex flex-col items-center justify-center text-gray-600">
+                <div className="text-6xl mb-3 animate-spin">💫</div>
+                <p className="text-lg font-semibold">Generating your slides...</p>
+                <p className="text-sm">This may take a few seconds ⏳</p>
+              </div>
+            ) : slides.length === 0 ? (
+              <div className="h-96 flex items-center justify-center text-gray-500">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">📊</div>
+                  <p>Your presentation will appear here</p>
+                  <p className="text-sm">Try asking for a presentation about your favorite topic!</p>
+                </div>
+              </div>
+            ) : (
+              <div className="h-96 overflow-y-auto space-y-4">
+                {slides.map((slide, index) => (
                 <div key={index} className="border border-gray-200 rounded-lg p-4">
                   <h3 className="font-semibold text-lg text-blue-600 mb-2">
                     Slide {index + 1}: {slide.title}
@@ -622,7 +639,8 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
